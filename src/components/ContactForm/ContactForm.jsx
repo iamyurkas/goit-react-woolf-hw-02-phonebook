@@ -9,6 +9,10 @@ export class ContactForm extends Component {
     number: '',
   };
 
+  validatePhoneNumber = (value) => {
+    const pattern = /^\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}$/;
+    return pattern.test(value);
+  };
     
   handleChange = (event) => {
     const { name, value } = event.target;
@@ -17,10 +21,21 @@ export class ContactForm extends Component {
     });
   };
 
-  handleAddContact = () => {
+  handleAddContact = (event) => {
+    event.preventDefault();
     const { addContact } = this.props;
     const { name, number } = this.state;
 
+    if (name.trim() === '' || number.trim() === '') {
+      alert("Please enter both name and phone number.");
+      return;
+    }
+    
+    if (!this.validatePhoneNumber(number)) {
+      alert("Phone number must be digits and can contain spaces, dashes, parentheses and can start with +");
+      return;
+    }
+    
     addContact({ id: nanoid(), name, number });
     this.setState({
       name: '',
