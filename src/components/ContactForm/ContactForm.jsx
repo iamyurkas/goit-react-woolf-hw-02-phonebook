@@ -30,7 +30,7 @@ export class ContactForm extends Component {
 
   render() {
     return (
-      <div className={css.contactForm}>
+      <form className={css.contactForm}>
         <input
           type="text"
           name="name"
@@ -57,7 +57,7 @@ export class ContactForm extends Component {
         <button className={css.button} onClick={this.handleAddContact}>
           Add Contact
         </button>
-      </div>
+      </form>
     );
   }
 }
